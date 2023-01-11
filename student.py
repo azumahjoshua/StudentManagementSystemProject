@@ -46,9 +46,10 @@ class Student:
         """
         # Check if student_id is an integer
         try:
-            for i, student in enumerate(self.students):
+            for student in self.students:
                 if student["student_id"] == student_id:
-                    del self.students[i]
+                    self.students.remove(student)
+                    print("Student has been removed.")
                     return
             raise ValueError(f"Student with ID {student_id} not found")
         except ValueError as e:
@@ -62,16 +63,15 @@ class Student:
 print("--------------------------Student Menu Options -----------------------------------------")
 
 menu_options = {
-    1: 'Create Student Register (Option 1)',
-    2: 'Add a student (Option 2)',
-    3: 'View student Record (Option 3)',
-    4: 'Search student (Option 4)',
-    5: 'Remove a student (Option 5)',
-    6: 'Get number of students (Option 6)',
-    7: 'Exit (Option 7)',
+    1: 'Add a student (Option 1)',
+    2: 'View student Record (Option 2)',
+    3: 'Search student (Option 3)',
+    4: 'Remove a student (Option 4)',
+    5: 'Get number of students (Option 5)',
+    6: 'Exit (Option 6)',
 }
 
-
+students = Student() #create an object of a student
 def print_menu():
     for key in menu_options.keys():
         print(key, '--', menu_options[key])
@@ -87,13 +87,12 @@ if __name__ == '__main__':
             continue
         # Check what choice was entered and act accordingly
         if option == 1:
-            students = Student() #create an object of a student
-            print("Student Register Created\n")
-        elif option == 2:
             students.add_student()
-        elif option == 3:
+            print("Student has successfully been added\n")
+        elif option == 2:
             students.view_students()
-        elif option == 4:
+        elif option == 3:
+            print("-------------------View Searchecd Student-----------------")
             search_student_id = input('Enter id of student to be searched: ')
             student = students.search_student(search_student_id)
             if student:
@@ -102,12 +101,12 @@ if __name__ == '__main__':
             else:
                 print("Student was not found")
             print("\n")
-        elif option == 5:
-            search_student = int(input('Enter id of student to be removed: '))
+        elif option == 4:
+            search_student = (input('Enter id of student to be removed: '))
             students.delete_student(search_student)
-        elif option == 6:
+        elif option == 5:
             print(f"Number students: {students.get_num_students()}")
-        elif option == 7:
+        elif option == 6:
             print('Thanks message before exiting')
             exit()
         else:
